@@ -413,8 +413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2572bb418949748998d798d50e52df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
-  _prefab: {fileID: 4608774814566570528, guid: d99bc46591d6c584886a24c4c913a8a3, type: 3}
-  _target: {fileID: 821494304}
+  _prefab: {fileID: 742493124655694280, guid: d99bc46591d6c584886a24c4c913a8a3, type: 3}
+  _target: {fileID: 821494307}
   _random: {fileID: 821494307}
 --- !u!4 &821494306
 Transform:

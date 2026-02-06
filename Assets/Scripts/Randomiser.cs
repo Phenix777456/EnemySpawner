@@ -1,58 +1,33 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Randomiser : MonoBehaviour
 {
-    private int _rangeOfSpawn = 5;
+    private int _rangeOfSpawn =  5;
     private int _rangeOfRotation = 90;
 
     public (Vector3, Vector3) ChoosePosition()
     {
-        const int FirstPosition = 1;
-        const int SecondPosition = 2;
-        const int ThirdPosition = 3;
-        const int FourthPosition = 4;
+        List<Vector3> SpawnPositions = new List<Vector3> {
+            new Vector3(_rangeOfSpawn, 0, 0), new Vector3(-_rangeOfSpawn, 0, 0),
+            new Vector3(0, 0, _rangeOfSpawn), new Vector3(0, 0, -_rangeOfSpawn)
+        };
 
-        int maxRange = 5;
-        int minRange = 1;
+        List<Vector3> SpawnRotations = new List<Vector3> {
+            new Vector3(0, _rangeOfRotation, 0), new Vector3(0, -_rangeOfRotation, 0),
+            new Vector3(0, 0, 0),  new Vector3(0, 2 * _rangeOfRotation, 0)
+        };
+
+        int maxRange = 4;
+        int minRange = 0;
         Vector3 finalSpawnPoint = new Vector3(0, 0, 0);
         Vector3 finalRotation = new Vector3(0, 0, 0);
 
         int position = UnityEngine.Random.Range(minRange, maxRange);
 
-        switch (position)
-        {
-            case FirstPosition:
-                finalSpawnPoint = new Vector3(_rangeOfSpawn, 0, 0);
-                break;
-            case SecondPosition:
-                finalSpawnPoint = new Vector3(-_rangeOfSpawn, 0, 0);
-                break;
-            case ThirdPosition:
-                finalSpawnPoint = new Vector3(0, 0, _rangeOfSpawn);
-                break;
-            case FourthPosition:
-                finalSpawnPoint = new Vector3(0, 0, -_rangeOfSpawn);
-                break;
-        }
-
         int rotation = UnityEngine.Random.Range(minRange, maxRange);
 
-        switch (rotation)
-        {
-            case FirstPosition:
-                finalRotation = new Vector3(0, _rangeOfRotation, 0);
-                break;
-            case SecondPosition:
-                finalRotation = new Vector3(0, -_rangeOfRotation, 0);
-                break;
-            case ThirdPosition:
-                finalRotation = new Vector3(0, 0, 0);
-                break;
-            case FourthPosition:
-                finalRotation = new Vector3(0, 2 * _rangeOfRotation, 0);
-                break;
-        }
-
-        return (finalSpawnPoint, finalRotation);
+        return (SpawnPositions[position], SpawnRotations[rotation]);
     }
 }

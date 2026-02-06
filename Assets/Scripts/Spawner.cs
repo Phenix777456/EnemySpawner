@@ -5,37 +5,38 @@ using UnityEngine.Pool;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _prefab;
-    [SerializeField] private GameObject _target;
+    [SerializeField] private MoverCharacter _prefab;
     [SerializeField] private Randomiser _random;
 
-    private ObjectPool<GameObject> _poolOfEnemyes;
+    private ObjectPool<MoverCharacter> _poolOfEnemyes;
 
     private Vector3 _finalSpawnPoint;
     private Vector3 _finalRotation;
     private float _delaySpawn = 2f;
 
-    private void Awake()
+    private void Update()
     {
-        InvokeRepeating(nameof(SpawnCube), 0, _delaySpawn);
+        StartCoroutine(SpawnCube(_delaySpawn));
     }
 
     private void Start()
     {
-        _poolOfEnemyes = new ObjectPool<GameObject>(
+        _poolOfEnemyes = new ObjectPool<MoverCharacter>(
             createFunc: () => Instantiate(_prefab),
             actionOnGet: (obj) => OnGetEnemy(obj));
     }
 
-    private void SpawnCube()
+    private IEnumerator SpawnCube(float delay)
     {
+        yield return new WaitForSeconds(delay);
         _poolOfEnemyes.Get();
+        StopAllCoroutines();
     }
 
-    private void OnGetEnemy(GameObject Enemy)
+    private void OnGetEnemy(MoverCharacter enemy)
     {
         (_finalSpawnPoint, _finalRotation) =_random.ChoosePosition();
-        Enemy.transform.Rotate(_finalRotation);
-        Enemy.transform.position = _target.transform.position + _finalSpawnPoint;
+        enemy.gameObject.transform.Rotate(_finalRotation);
+        enemy.gameObject.transform.position = _random.gameObject.transform.position + _finalSpawnPoint;
     }
 }
