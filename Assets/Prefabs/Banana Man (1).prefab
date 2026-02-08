@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputReader
   _speed: 1
+  _enemyAnimator: {fileID: 2534232396513977942}
 --- !u!114 &2534232396513977942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ba41b7df3e22748ac90b469d75f63d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationControl
-  _moverCharacter: {fileID: 742493124655694280}
   _animator: {fileID: 7088195491339197152}
 --- !u!95 &7088195491339197152 stripped
 Animator:

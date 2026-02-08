@@ -1,28 +1,35 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoverCharacter : MonoBehaviour
 {
     [SerializeField] private float _speed = 1.0f;
+    [SerializeField] private EnemyAnimator _enemyAnimator;
 
     private Vector3 _finalRotation;
+
+    private bool isWalk = true;
+
+    public Vector3 finalRotation
+    {
+        private get { return _finalRotation; }
+
+        set { _finalRotation = value; }
+    }
 
     public event Action OnMove;
 
     private void Start()
     {
         OnMove?.Invoke();
-        transform.Rotate(_finalRotation);
+        _enemyAnimator.OnStartMoving(isWalk);
+        transform.Rotate(finalRotation);
     }
 
     private void Update()
     {
         Move();
-    }
-
-    public void Intialise(Vector3 finalRotation)
-    {
-        _finalRotation = finalRotation;
     }
 
     private void Move()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
+using static Randomiser;
 
 public class Spawner : MonoBehaviour
 {
@@ -10,9 +11,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Randomiser _random;
 
     private ObjectPool<MoverCharacter> _poolOfEnemyes;
-
-    private Vector3 _finalSpawnPoint;
-    private Vector3 _finalRotation;
+    
     private float _delaySpawn = 2f;
 
     private void Start()
@@ -26,17 +25,20 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator SpawnCube(float delay)
     {
+        WaitForSeconds delayBetwinSpawn = new WaitForSeconds(delay);
+
         while (enabled)
         {
-            yield return new WaitForSeconds(delay);
+            yield return delayBetwinSpawn;
             _poolOfEnemyes.Get();
         }
     }
 
     private void OnGetEnemy(MoverCharacter enemy)
     {
-        (_finalSpawnPoint, _finalRotation) =_random.ChoosePosition();
-        enemy.Intialise(_finalRotation);
-        enemy.gameObject.transform.position = _random.gameObject.transform.position + _finalSpawnPoint;
+        SpawnData data = _random.ChoosePosition();
+
+        enemy.finalRotation = data.spawnRotation;
+        enemy.gameObject.transform.position = _random.gameObject.transform.position + data.spawnPosition;
     }
 }

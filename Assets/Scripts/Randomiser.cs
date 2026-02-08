@@ -7,7 +7,13 @@ public class Randomiser : MonoBehaviour
     private int _rangeOfSpawn =  5;
     private int _rangeOfRotation = 90;
 
-    public (Vector3, Vector3) ChoosePosition()
+    public struct SpawnData
+    {
+        public Vector3 spawnPosition;
+        public Vector3 spawnRotation;
+    }
+
+    public SpawnData ChoosePosition()
     {
         List<Vector3> SpawnPositions = new List<Vector3> {
             new Vector3(_rangeOfSpawn, 0, 0), new Vector3(-_rangeOfSpawn, 0, 0),
@@ -21,6 +27,7 @@ public class Randomiser : MonoBehaviour
 
         int maxRange = 4;
         int minRange = 0;
+
         Vector3 finalSpawnPoint = new Vector3(0, 0, 0);
         Vector3 finalRotation = new Vector3(0, 0, 0);
 
@@ -28,6 +35,13 @@ public class Randomiser : MonoBehaviour
 
         int rotation = UnityEngine.Random.Range(minRange, maxRange);
 
-        return (SpawnPositions[position], SpawnRotations[rotation]);
+        Vector3 spawnPosition = SpawnPositions[position];
+        Vector3 spawnRotation = SpawnRotations[rotation];
+
+        return new SpawnData
+        {
+            spawnPosition = spawnPosition,
+            spawnRotation = spawnRotation
+        };
     }
 }
