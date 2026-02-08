@@ -414,7 +414,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   _prefab: {fileID: 742493124655694280, guid: d99bc46591d6c584886a24c4c913a8a3, type: 3}
-  _target: {fileID: 821494307}
   _random: {fileID: 821494307}
 --- !u!4 &821494306
 Transform:

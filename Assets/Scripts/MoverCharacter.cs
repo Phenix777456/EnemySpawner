@@ -1,27 +1,32 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-
 public class MoverCharacter : MonoBehaviour
 {
     [SerializeField] private float _speed = 1.0f;
 
-    private Animator _animator;
+    private Vector3 _finalRotation;
+
+    public event Action OnMove;
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
+        OnMove?.Invoke();
+        transform.Rotate(_finalRotation);
     }
 
     private void Update()
     {
-        Mover();
+        Move();
     }
 
-    private void Mover()
+    public void Intialise(Vector3 finalRotation)
+    {
+        _finalRotation = finalRotation;
+    }
+
+    private void Move()
     {
         transform.Translate(0f, 0f, _speed * Time.deltaTime);
-        _animator.SetBool("isMove", true);
     }
 }
