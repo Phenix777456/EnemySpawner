@@ -38,7 +38,7 @@ public class Spawner : MonoBehaviour
     {
         SpawnData data = _random.ChoosePosition();
 
-        enemy.finalRotation = data.spawnRotation;
+        enemy.Initialise(data.spawnDirection);
         enemy.gameObject.transform.position = _random.gameObject.transform.position + data.spawnPosition;
     }
 }

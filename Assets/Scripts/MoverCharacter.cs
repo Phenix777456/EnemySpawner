@@ -7,24 +7,13 @@ public class MoverCharacter : MonoBehaviour
     [SerializeField] private float _speed = 1.0f;
     [SerializeField] private EnemyAnimator _enemyAnimator;
 
-    private Vector3 _finalRotation;
-
+    private Vector3 _spawnVector;
     private bool isWalk = true;
 
-    public Vector3 finalRotation
-    {
-        private get { return _finalRotation; }
-
-        set { _finalRotation = value; }
-    }
-
-    public event Action OnMove;
 
     private void Start()
     {
-        OnMove?.Invoke();
         _enemyAnimator.OnStartMoving(isWalk);
-        transform.Rotate(finalRotation);
     }
 
     private void Update()
@@ -32,8 +21,13 @@ public class MoverCharacter : MonoBehaviour
         Move();
     }
 
+    public void Initialise(Vector3 spawnVector)
+    {
+        _spawnVector = spawnVector * Time.deltaTime * _speed;
+    }
+
     private void Move()
     {
-        transform.Translate(0f, 0f, _speed * Time.deltaTime);
+        transform.Translate(_spawnVector);
     }
 }

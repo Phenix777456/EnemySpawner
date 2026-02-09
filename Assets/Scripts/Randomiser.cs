@@ -5,12 +5,12 @@ using UnityEngine;
 public class Randomiser : MonoBehaviour
 {
     private int _rangeOfSpawn =  5;
-    private int _rangeOfRotation = 90;
+    private int _valueOfDirection = 1;
 
     public struct SpawnData
     {
         public Vector3 spawnPosition;
-        public Vector3 spawnRotation;
+        public Vector3 spawnDirection;
     }
 
     public SpawnData ChoosePosition()
@@ -20,9 +20,9 @@ public class Randomiser : MonoBehaviour
             new Vector3(0, 0, _rangeOfSpawn), new Vector3(0, 0, -_rangeOfSpawn)
         };
 
-        List<Vector3> SpawnRotations = new List<Vector3> {
-            new Vector3(0, _rangeOfRotation, 0), new Vector3(0, -_rangeOfRotation, 0),
-            new Vector3(0, 0, 0),  new Vector3(0, 2 * _rangeOfRotation, 0)
+        List<Vector3> SpawnVector = new List<Vector3> {
+            new Vector3(_valueOfDirection, 0, 0), new Vector3(-_valueOfDirection, 0, 0),
+            new Vector3(0, 0, _valueOfDirection),  new Vector3(0, 0, 2 * -_valueOfDirection)
         };
 
         int maxRange = 4;
@@ -34,14 +34,14 @@ public class Randomiser : MonoBehaviour
         int position = UnityEngine.Random.Range(minRange, maxRange);
 
         int rotation = UnityEngine.Random.Range(minRange, maxRange);
-
+    
         Vector3 spawnPosition = SpawnPositions[position];
-        Vector3 spawnRotation = SpawnRotations[rotation];
+        Vector3 spawnRotation = SpawnVector[rotation];
 
         return new SpawnData
         {
             spawnPosition = spawnPosition,
-            spawnRotation = spawnRotation
+            spawnDirection = spawnRotation
         };
     }
 }
