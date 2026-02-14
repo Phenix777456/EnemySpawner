@@ -12,4 +12,9 @@ public class EnemyAnimator : MonoBehaviour
     {
         _animator.SetBool(isMove, isWalk);
     }
+
+    public void OnStopMoving(bool isWalk)
+    {
+        _animator.SetBool(isMove, isWalk);
+    }
 }
